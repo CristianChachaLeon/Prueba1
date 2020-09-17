@@ -1,0 +1,644 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<title>Feliz cumpleaños</title>
+
+	<link rel="stylesheet" href="dist/reset.css">
+	<link rel="stylesheet" href="dist/reveal.css">
+	<link rel="stylesheet" href="dist/theme/solarized.css" id="theme">
+
+	<!-- Theme used for syntax highlighted code -->
+	<link rel="stylesheet" href="plugin/highlight/monokai.css" id="highlight-theme">
+	<style>
+		.reveal .slide-background-content {
+			background: #ffe9e9;
+		}
+
+		.personajes a:hover {
+			color: #403A3A !important;
+		}
+
+		a {
+			color: #807474 !important;
+		}
+
+		ul li {
+			list-style-type: none;
+			list-style-position: outside;
+		}
+
+		.personajes li::before {
+			content: "▶";
+			opacity: 0;
+		}
+
+		.personajes li:hover::before {
+			content: "▶";
+			/* color: #495052; */
+			color: #403A3A;
+			opacity: 100%;
+		}
+
+		.avance {
+			position: fixed !important;
+			top: 5%;
+			right: 5%;
+		}
+
+		.atras {
+			position: fixed !important;
+			top: 5%;
+			left: 5%;
+		}
+
+		.avance a:hover {
+			opacity: 100%;
+		}
+
+		.avance a {
+			opacity: 50%;
+		}
+
+		/* .escribir{
+				position:relative;
+			}
+			.escribir	p {
+				float: left;
+				position: relative;
+
+			}
+			.escribir p span{
+				position: absolute;
+				right: 0;
+				width: 0;
+				background: red;
+				border-left: 1px solid #000;
+
+				animation: maquina 5s infinite alternate;
+
+			}
+
+			@keyframes maquina {
+				from{
+					width: 100%;
+				}
+				to{
+					width: 0%;
+				}
+			} */
+		.posicionflecha {
+			top: 0 !important;
+			display: flex !important;
+			flex-wrap: wrap !important;
+			align-items: center !important;
+			height: 100% !important;
+			align-content: center;
+			justify-content: center;
+		}
+
+		.posicionflecha p {
+			display: flex !important;
+		}
+
+		.stop {
+			display: none !important;
+		}
+
+		.contenedor {
+
+			display: flex;
+			flex-wrap: wrap;
+			align-items: center;
+			align-content: center;
+			justify-content: space-around;
+		}
+
+		.text li:hover {
+			color: #403A3A;
+		}
+
+		.btn_selec {
+			/* border: 3px solid #c5b3b3; */
+
+			padding: 10px;
+			margin: 5px;
+			border: 3px solid transparent;
+			border-radius: 20px;
+		}
+
+		.btn_selec:hover {
+			background: #FFE3DB;
+			border: 3px solid #c5b3b3;
+
+		}
+
+		.contenedor_caja {
+			position: relative;
+			/* border: 1px solid red; */
+			width: 300px;
+			height: 300px;
+			margin: 10px;
+		}
+
+		.contenedor_centado {
+			width: 300px;
+			height: 300px;
+
+		}
+
+		.caja {
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			margin: auto !important;
+			z-index: 0;
+
+		}
+
+		#stiker_sobre_caja {
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			margin: auto !important;
+			z-index: 1;
+		}
+
+		#caja_c {
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			margin: auto !important;
+			z-index: 0;
+		}
+
+		#stiker_c {
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			margin: auto !important;
+			z-index: 1;
+		}
+
+		#lazo_c {
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			margin: auto !important;
+			z-index: 2;
+		}
+
+		.lluvia_objetos {
+			position: relative;
+			/* border: 3px solid green; */
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: center;
+			align-items: center;
+			height: 100%
+		}
+
+		#obj1 {
+			margin-top: 100px;
+			padding-top: 50px;
+		}
+
+		#canvas_gorras,
+		#canvas_gafas,
+		#canvas_gomas {
+			/* border: 1px solid red; */
+			width: 100%;
+		}
+
+		.btn_superpuesto {
+			position: absolute !important;
+			left: 0;
+			right: 0;
+			top: 0;
+			bottom: 0;
+			margin: auto !important;
+		}
+
+		#flecha_gorra,
+		#flecha_gafa,
+		#flecha_goma {
+			display: none;
+		}
+
+		.tarjeta {
+
+			background: white;
+			margin: 10px;
+			padding: 30px;
+			position: relative;
+			/* border: 1px solid black ; */
+		}
+
+		.triangulo {
+			position: absolute;
+			right: 0;
+			top: 0;
+			/* width: 10%;
+				height: 23%;
+
+				background:red; */
+			/* border: 10px solid black; */
+			box-sizing: border-box;
+			border-right: 30px solid #ffe9e9;
+			;
+			border-top: 30px solid #ffe9e9;
+			;
+			border-left: 30px solid #E0E0E0;
+			border-bottom: 30px solid #E0E0E0;
+			z-index: 3;
+
+		}
+
+		#btn_lazo,
+		#btn_lazo2,
+		#btn_lazo3 {
+
+			height: 60%;
+		}
+	</style>
+</head>
+
+<body>
+
+	<!--Div para iniciar -->
+	<div class="reveal">
+		<div class="slides">
+
+			<section data-autoslide=" 3000 ">
+				<audio id="background_audio" loop src="media/background_audio.mp3"> </audio>
+				<h1>HOLA!!!</h1>
+				<img src="imagenes/ruborizado.png" alt="" width="30%">
+
+			</section>
+			<section>
+				<section>
+
+					<h2>Selecciona tu personaje</h2>
+
+					<ul class="personajes">
+						<li><a id="music_play" onclick="reproducir()" href="#/2"> Génesis</a></li>
+						<li><a href="#/1/1"> Cristian</a></li>
+
+					</ul>
+				</section>
+				<section data-autoslide=" 1000 ">
+					<h3 class="fragment">Cristian</h3>
+					<p class="fragment">Hoy es un día especial, recuerda no hay que cagarla...
+						<br> más bien hay que intentar no cargarla ningún dia :)</p>
+					<div class="fragment avance">
+						<a href="#/1"><img src="imagenes/flecha_arriba_1.png" alt="" width="50px"> </a>
+					</div>
+					<p class="fragment" data-autoslide="0"></p> <!-- no one knows I exist! -->
+				</section>
+			</section>
+
+			<section class="posicionflecha" data-autoslide="1000">
+				<h3 class="fragment">Génesis</h3>
+				<p class="fragment">Hoy es un día muy especial, no sé por qué pero se torna demasiado particular</p>
+				<div class="fragment avance">
+					<a href="#/3"><img src="imagenes/flecha_derecha.png" alt="" width="30px"> </a>
+				</div>
+				<span class="fragment" data-autoslide="0"></span> <!-- no one knows I exist! -->
+
+			</section>
+			<section class="posicionflecha" data-autoslide="1000">
+
+				<p class="fragment">Hace 23 añitos nació una bella niña, seguro desde tan pequeña ya tenía ese dulce
+					corazón , bonita sonrisa y todas esas ideas tan increibles </p>
+				<div class="fragment avance">
+					<a href="#/4"><img src="imagenes/flecha_derecha.png" alt="" width="30px"> </a>
+				</div>
+				<span class="fragment stop" data-autoslide="0"></span> <!-- no one knows I exist! -->
+
+
+			</section>
+			<section class="posicionflecha" data-autoslide="1000">
+				<p class="fragment">Puede que no me creas pero tú has sido capaz de iluminar a muchas personas, hablo
+					por mí pero seguro hay un montón de personas que también te lo agradecerían :)</p>
+				<p class="fragment">Gracias, gracias por ese brillo tan particular que le has puesto y pones a los días
+				</p>
+				<div class="fragment avance">
+					<a href="#/5"><img src="imagenes/flecha_derecha.png" alt="" width="30px"> </a>
+				</div>
+				<span class="fragment stop" data-autoslide="0"></span>
+			</section>
+
+			<section class="posicionflecha" data-autoslide="1000">
+				<p class="fragment">Gracias por esa actitud tan positiva, por ese carisma tan particular, por los
+					chistes, por los memes, por las canciones, por las historia, por los regalos ^^ , por los abrazos y
+					cientos de gracias por ser tan mágica...</p>
+				<p class="fragment">Puede que no lo entiendas pero gracias por enseñarme a ser quien soy hoy :) </p>
+				<div class="fragment avance">
+					<a href="#/6"><img src="imagenes/flecha_derecha.png" alt="" width="30px"> </a>
+				</div>
+				<span class="fragment stop" data-autoslide="0"></span>
+			</section>
+			<section class="posicionflecha" data-autoslide="1000">
+				<p class="fragment">Pero.... lo sé, lo sé... &nbsp; </p>
+				<p class="fragment"> Muchas gracias, gracias.....</p>
+				<p class="fragment">¿Pero y los regalos?</p>
+				<div class="fragment avance">
+					<a href="#/7"><img src="imagenes/flecha_derecha.png" alt="" width="30px"> </a>
+				</div>
+				<span class="fragment stop" data-autoslide="0"></span>
+			</section>
+			<section class="posicionflecha" data-autoslide="1000">
+				<p class="fragment">Pensé en enviarte un montón de cosas...</p>
+				<p class="fragment">pero :( capaz ahí se daña la cosa por nuestro amigo c-19</p>
+				<p class="fragment">Pero ante problemas, ¡hay que buscar soluciones :D!</p>
+				<div class="fragment avance">
+					<a href="#/8"><img src="imagenes/flecha_derecha.png" alt="" width="30px"> </a>
+				</div>
+				<span class="fragment stop" data-autoslide="0"></span>
+			</section>
+			<section class="posicionflecha" data-autoslide="1000">
+				<p class="fragment">Así que aunque me gustaría mucho ser yo quien te diese los regalos en persona y
+					llevar la caja en mis manos</p>
+				<p class="fragment">Esta vez va a ser online :v</p>
+				<p class="fragment">y lo sé, lo sé... todo el online te debe tener harta, pero déjame hacerme un
+					huequito en todas esas horas frente a la pantalla</p>
+				<div class="fragment avance">
+					<a href="#/9"><img src="imagenes/flecha_derecha.png" alt="" width="30px"> </a>
+				</div>
+				<span class="fragment stop" data-autoslide="0"></span>
+
+			</section>
+			<section class="posicionflecha" data-autoslide="1000">
+				<p class="fragment">Lo bueno es que... aquí en este espacio puedo crear lo que desee y regalarte todo
+					cuan puedas imaginar :D</p>
+				<div class="fragment avance">
+					<a href="#/10"><img src="imagenes/flecha_derecha.png" alt="" width="30px"> </a>
+				</div>
+				<span class="fragment stop" data-autoslide="0"></span>
+			</section>
+
+			<!-- SELECCIONAR COLOR DE CAJA -->
+			<section data-autoslide="1000">
+				<h2 class="fragment">Bien empecemos por la cajita</h2>
+				<div class="fragment contenedor">
+					<div class="text">
+						<p>Color:</p>
+						<ul>
+							<li id="ColorRojo" onmouseover="cambiarColorCaja('Rojo')">Rojo</li>
+							<li id="ColorBeige" onmouseover="cambiarColorCaja('Beige')">Beige</li>
+							<li id="ColorVerde" onmouseover="cambiarColorCaja('Verde')">Verde</li>
+							<li id="ColorBlanco" onmouseover="cambiarColorCaja('Blanco')">Blanco</li>
+							<li id="ColorAzul" onmouseover="cambiarColorCaja('Azul')">Azul</li>
+							<li id="ColorNegro" onmouseover="cambiarColorCaja('Negro')">Negro</li>
+							<li id="ColorRosa" onmouseover="cambiarColorCaja('Rosa')">Rosa</li>
+							<li id="ColorDorado" onmouseover="cambiarColorCaja('Dorado')">Dorado</li>
+							<li id="ColorEspacial" onmouseover="cambiarColorCaja('Espacial')">Espacial</li>
+						</ul>
+					</div>
+					<div class=" contenedor_caja">
+						<img id="caja_pintar" src="imagenes/caja_blanca.png" alt="" height="200px">
+						<!-- <p class="btn_selec"><a href="#/11">Seleccionar</a></p> -->
+					</div>
+
+				</div>
+				<div class="fragment avance">
+					<a href="#/11"><img src="imagenes/flecha_derecha.png" alt="" width="30px"> </a>
+				</div>
+
+				<span class="fragment stop" data-autoslide="0"></span>
+
+			</section>
+
+			<!-- STIKERS -->
+			<section data-autoslide="1000">
+				<p class="fragment">Y ahora unos stikers jajaja</p>
+				<div class="fragment contenedor">
+					<div class="text">
+						<p>Stikers:</p>
+						<ul>
+							<li onmouseover="cambiarStik('Corazones')">Corazones</li>
+							<li onmouseover="cambiarStik('Estrellas')">Estrellas</li>
+							<li onmouseover="cambiarStik('Planetas')">Planetas</li>
+							<li onmouseover="cambiarStik('Ositos')">Ositos</li>
+						</ul>
+
+					</div>
+					<div class=" contenedor_caja">
+						<img id="caja_pintada" alt="caja_pintada" height="200px" class="caja">
+						<img id="stiker_sobre_caja" src="imagenes/stiker_vacio.png" alt="stiker" height="200px">
+
+					</div>
+					<div class="fragment avance">
+						<a href="#/12"><img src="imagenes/flecha_derecha.png" alt="" width="30px"> </a>
+					</div>
+					<div class="fragment atras">
+						<a href="#/10"><img src="imagenes/flecha_izquierda.png" alt="" width="30px"> </a>
+					</div>
+
+				</div>
+				<span class="fragment stop" data-autoslide="0"></span>
+			</section>
+
+			<!-- Caja final -->
+			<section data-autoslide="1100">
+				<h3>Y le ponemos un lacito</h3>
+				<div class=" contenedor_centado">
+					<img class="fragment " id="caja_c" alt="caja_fondo" height="200px" class="caja">
+					<img class="fragment " id="stiker_c" alt="stiker" height="200px">
+					<img class="fragment " id="lazo_c" src="imagenes/lazo.png" height="200px" alt="lazo">
+					<span class="fragment stop" data-autoslide="1500"></span>
+				</div>
+			</section>
+
+			<section class="posicionflecha" data-autoslide="1000">
+				<div class="fragment avance">
+					<a href="#/14"><img src="imagenes/flecha_derecha.png" alt="" width="30px"> </a>
+				</div>
+				<p>Bueno, este regalo es un tanto especial, porque es un regalo entre los dos para ti, tu elijes la caja
+					y yo el contenido</p>
+				<span class="fragment stop" data-autoslide="0"></span>
+
+			</section>
+
+			<!-- Gorras -->
+			<section class="posicionflecha" data-autoslide="1000">
+				<p>Primero... </p>
+				<!-- Caja abierta -->
+
+				<p class="fragment">Las gorritas</p>
+			</section>
+
+
+			<section class="lluvia_objetos">
+				<h3>Pero cientos</h3>
+				<img onclick="colocarObjetos(150); ocultarObjeto(lazo1);" src="imagenes/lazo_regalo.png" alt=""
+					class="btn_superpuesto" id="btn_lazo">
+				<canvas id="canvas_gorras" height="130px" width="200px">
+				</canvas>
+
+				<div class="avance">
+					<a id="flecha_gorra" href="#/16"><img src="imagenes/flecha_derecha.png" alt="" width="30px"> </a>
+				</div>
+			</section>
+
+
+			<section class="lluvia_objetos">
+				<h3>Y unas gafitas</h3>
+				<img onclick="colocarObjetos2(150);   ocultarObjeto(lazo2);" src="imagenes/lazo_regalo.png" alt=""
+					class="btn_superpuesto" id="btn_lazo2">
+				<canvas id="canvas_gafas" height="130px" width="200px">
+				</canvas>
+
+				<div class="avance">
+					<a id="flecha_gafa" href="#/17"><img src="imagenes/flecha_derecha.png" alt="" width="30px"> </a>
+				</div>
+			</section>
+
+
+
+
+			<section class="lluvia_objetos">
+				<p>No podían faltar las gomitas</p>
+				<canvas id="canvas_gomas" width="130px" height="200px"></canvas>
+				<img onclick="colocarObjetos3();   ocultarObjeto(lazo3);" src="imagenes/lazo_regalo.png" alt=""
+					class="btn_superpuesto" id="btn_lazo3">
+				<div class="avance">
+					<a id="flecha_goma" href="#/18"><img src="imagenes/flecha_derecha.png" alt="" width="30px"> </a>
+				</div>
+			</section>
+
+			<section class="posicionflecha" data-autoslide="1000">
+				<p class="fragment">Por su puesto una tarjetita</p>
+				<!-- dentro de la tarjeta -->
+				<div class=" fragment tarjeta">
+					<div class="triangulo">
+
+					</div>
+					<p>Génesis =) Feliz 23 años <br>Espero que cumplas muchísimos más <br> y que todos tus sueños se
+						cumplan <br>Un abrazo :) </p>
+				</div>
+
+				<div class="fragment avance">
+					<a href="#/19"><img src="imagenes/flecha_derecha.png" alt="" width="30px"> </a>
+				</div>
+				<span class="fragment stop" data-autoslide="0"></span>
+
+			</section>
+
+			<section class="lluvia_objetos" data-autoslide="1000">
+				<p class="fragment">Los regalos o acaban ahí...</p>
+				<p class="fragment">No son unos 23 años, sin un ramito </p>
+
+
+
+
+				<img class="fragment" src="imagenes/ramo.png" alt="">
+
+				<div class="fragment avance">
+					<a href="#/20"><img src="imagenes/flecha_derecha.png" alt="" width="30px"> </a>
+				</div>
+
+				<span class="fragment stop" data-autoslide="0"></span>
+				<!-- dibujo de ramo -->
+			</section>
+
+			<section class="lluvia_objetos" data-autoslide="1000">
+				<p class="fragment">Y ya que estamos un corazoncito de flores</p>
+
+
+
+				<img class="fragment" src="imagenes/corazon_flores.png" alt="">
+
+				<div class="fragment avance">
+					<a href="#/21"><img src="imagenes/flecha_derecha.png" alt="" width="30px"> </a>
+				</div>
+				<span class="fragment stop" data-autoslide="0"></span>
+
+			</section>
+
+			<section class="lluvia_objetos" data-autoslide="1000">
+				<p class="fragment">Un dibujito...</p>
+				<img class="fragment" src="imagenes/dibujo_regalo.jpg" alt="">
+				<div class="fragment avance">
+					<a href="#/22"><img src="imagenes/flecha_derecha.png" alt="" width="30px"> </a>
+				</div>
+				<span class="fragment stop" data-autoslide="0"></span>
+			</section>
+
+			<section class="lluvia_objetos" data-autoslide="1000">
+				<p class="fragment">Un abrazo super super super grande</p>
+				<img class="fragment" src="imagenes/abrazo_recorte.png" alt="">
+				<div class="fragment avance">
+					<a href="#/23"><img src="imagenes/flecha_derecha.png" alt="" width="30px"> </a>
+				</div>
+				<span class="fragment stop" data-autoslide="0"></span>
+
+
+			</section>
+
+			<section class="lluvia_objetos" data-autoslide="1000">
+				<p class="fragment"> Y claro un pastel</p>
+				<img class="fragment" src="imagenes/pastel.gif" alt="">
+				<p class="fragment"> Pero te voy a quedar debiendo el hornado :P</p>
+				<div class="fragment avance">
+
+					<a href="#/24"><img src="imagenes/flecha_derecha.png" alt="" width="30px"> </a>
+				</div>
+				<span class="fragment stop" data-autoslide="0"></span>
+
+			</section>
+
+			<section data-background-image='imagenes/fondo_estrellas_fugaz.gif' data-background-size='cover'
+				data-autoslide="1500">
+				<h2 class="fragment"> Pide un deseo</h2>
+
+				<p span class="fragment stop" data-autoslide="3000"></p>
+				<h3 class="fragment">Espero que se cumpla </h3>
+				<p class="fragment">:D</p>
+			</section>
+
+			<section data-autoslide="1000">
+				<h1 class="fragment">Feliz feliz Cumpleaños Génesis</h1>
+			</section>
+		</div>
+
+	</div>
+
+	<script src="dist/reveal.js"></script>
+	<script src="plugin/notes/notes.js"></script>
+	<script src="plugin/markdown/markdown.js"></script>
+	<script src="plugin/highlight/highlight.js"></script>
+	<script src="plugin/zoom/zoom.js"></script>
+
+	<script>
+		// More info about initialization & config:
+		// - https://revealjs.com/initialization/
+		// - https://revealjs.com/config/
+		Reveal.initialize({
+			hash: true,
+			progress: false,
+			controls: false,
+			//transition: 'convex',
+			// center:false,
+
+			// Learn about plugins: https://revealjs.com/plugins/
+			plugins: [RevealZoom, RevealMarkdown, RevealHighlight, RevealNotes]
+		});
+	</script>
+	<script src="js/mod.js"></script>
+</body>
+
+</html>
