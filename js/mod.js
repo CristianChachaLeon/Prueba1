@@ -377,6 +377,9 @@ function moverAbajo(x, y, dy) {
 function ocultarObjeto(objeto) {
   objeto.style.display = 'none';
 }
+function ocultarMensaje() {
+  document.getElementById('mensaje_lazo').style.display = 'none'
+}
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
