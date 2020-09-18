@@ -484,8 +484,9 @@
 
 			<section class="lluvia_objetos">
 				<h3>Pero cientos</h3>
-				<img onclick="colocarObjetos(150); ocultarObjeto(lazo1);" src="imagenes/lazo_regalo.png" alt=""
-					class="btn_superpuesto" id="btn_lazo">
+				<img onclick="colocarObjetos(150); ocultarObjeto(lazo1); ocultarMensaje();"
+					src="imagenes/lazo_regalo.png" alt="" class="btn_superpuesto" id="btn_lazo">
+				<p id="mensaje_lazo">Pulsa sobre el lazo</p>
 				<canvas id="canvas_gorras" height="130px" width="200px">
 				</canvas>
 
@@ -539,7 +540,7 @@
 			</section>
 
 			<section class="lluvia_objetos" data-autoslide="1000">
-				<p class="fragment">Los regalos o acaban ahí...</p>
+				<p class="fragment">Los regalos no acaban ahí...</p>
 				<p class="fragment">No son unos 23 años, sin un ramito </p>
 
 
